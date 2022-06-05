@@ -1,1 +1,0 @@
-print( "ajeet kumar gupta")
