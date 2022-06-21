@@ -1,7 +1,11 @@
 dpkg-reconfigure tzdata
-apt install -y apache2 apache2-utils autoconf gcc libc6 libgd-dev make php python python3 unzip wget
+apt install -y apache2 apache2-utils autoconf gcc libc6 libgd-dev make php python python3 unzip wget ca-certificates git
 cd /tmp/
-wget http://192.168.1.151/sw/sec_tools/nagios/nagios-4.4.5.tar.gz
+git clone https://github.com/Ajeetkumargupta/nagios
+cd nagios
+mv nagios-4.4.5.tar.gz /tmp/
+mv nagios-plugins-release-2.2.1.tar.gz /tmp/
+cd ..
 tar -xf nagios-4.4.5.tar.gz
 cd  nagios-4.4.5
 ./configure --with-httpd-conf=/etc/apache2/sites-enabled/
@@ -22,7 +26,6 @@ systemctl restart apache2
 systemctl restart nagios
 apt-get install -y automake autotools-dev bc build-essential dc gawk gettext libmcrypt-dev libnet-snmp-perl libssl-dev snmp
 cd /tmp/
-wget http://192.168.1.151/sw/sec_tools/nagios/nagios-plugins-release-2.2.1.tar.gz
 tar -xf nagios-plugins-release-2.2.1.tar.gz
 cd nagios-plugins-release-2.2.1
 ./tools/setup
@@ -30,7 +33,13 @@ cd nagios-plugins-release-2.2.1
 make
 make install
 cd /usr/local/nagios/libexec/
-wget http://192.168.1.151/sw/sec_tools/nagios/check_ncpa.py
+git clone https://github.com/Ajeetkumargupta/nagios
+cd nagios
+rm -r nagios-4.4.5.tar.gz
+rm -r nagios-plugins-release-2.2.1.tar.gz
+mv check_ncpa.py /usr/local/nagios/libexec/
+cd ..
+rm -r nagios
 chmod 755 check_ncpa.py
 cd /usr/local/nagios/etc/objects/
 
