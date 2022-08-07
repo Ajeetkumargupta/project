@@ -55,4 +55,5 @@ sed -i '50 i cfg_dir=/usr/local/nagios/etc/servers' /usr/local/nagios/etc/nagios
 #Commented that line
 
 sed -i '/ hostgroups /s/^/#/'  /usr/local/nagios/etc/objects/templates.cfg
+mkdir /usr/local/nagios/etc/servers
 
